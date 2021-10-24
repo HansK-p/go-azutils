@@ -12,6 +12,7 @@ var (
 	reservationOrderRE = regexp.MustCompile(`/microsoft.capacity/reservationOrders/([^/]+)(?:/.*)?$`)
 	hostGroupRE        = regexp.MustCompile(`/providers/Microsoft.Compute/hostGroups/([^/]+)(?:/.*)?$`)
 	vmNameRE           = regexp.MustCompile(`providers/Microsoft.Compute/virtualMachines/([^/]+)(?:/.*)?$`)
+	sqlServerNameRE    = regexp.MustCompile(`/Microsoft.Sql/servers/([^/]+)(?:/.*)?$`)
 )
 
 func IDToRGName(id string) (string, error) {
@@ -36,6 +37,10 @@ func IDToHostGroup(id string) (string, error) {
 
 func IDToVMName(id string) (string, error) {
 	return idExtractPart(id, *vmNameRE, "VM name")
+}
+
+func IDToSQLServerName(id string) (string, error) {
+	return idExtractPart(id, *sqlServerNameRE, "SQL Server name")
 }
 
 func idExtractPart(id string, re regexp.Regexp, what string) (string, error) {
