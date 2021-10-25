@@ -3,6 +3,11 @@ package azutils
 import (
 	"fmt"
 	"regexp"
+
+	log "github.com/sirupsen/logrus"
+
+	"github.com/Azure/go-autorest/autorest"
+	"github.com/Azure/go-autorest/autorest/azure/auth"
 )
 
 var (
@@ -49,4 +54,16 @@ func idExtractPart(id string, re regexp.Regexp, what string) (string, error) {
 		return "", fmt.Errorf("unable to extract '%s' using regexp '%s' from the id '%s'", what, re.String(), id)
 	}
 	return matches[1], nil
+}
+
+func Authorize(logger *log.Entry) (autorest.Authorizer, error) {
+	logger = logger.WithFields(log.Fields{"Module": "azutils", "Function": "Authorize"})
+	authorizer, err := auth.NewAuthorizerFromEnvironment()
+	if err != nil {
+		logger.Debugf("unable to create authorizer from the environment, trying to create an authorizer from the client: %s", err)
+		return auth.NewAuthorizerFromCLI()
+	} else {
+		logger.Debug("Authorizer successfully created from the environment")
+	}
+	return authorizer, err
 }
