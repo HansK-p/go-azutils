@@ -67,3 +67,15 @@ func Authorize(logger *log.Entry) (autorest.Authorizer, error) {
 	}
 	return authorizer, err
 }
+
+func AuthorizeWithResource(logger *log.Entry, resource string) (autorest.Authorizer, error) {
+	logger = logger.WithFields(log.Fields{"Module": "azutils", "Function": "AuthorizeWithResource"})
+	authorizer, err := auth.NewAuthorizerFromEnvironmentWithResource(resource)
+	if err != nil {
+		logger.Debugf("unable to create authorizer from the environment, trying to create an authorizer from the client: %s", err)
+		return auth.NewAuthorizerFromCLIWithResource(resource)
+	} else {
+		logger.Debug("Authorizer successfully created from the environment")
+	}
+	return authorizer, err
+}
