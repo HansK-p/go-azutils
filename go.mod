@@ -1,4 +1,4 @@
-module azutils
+module github.com/HansK-p/go-azutils
 
 go 1.17
 
