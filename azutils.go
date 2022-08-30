@@ -13,8 +13,8 @@ import (
 var (
 	rgNameRE           = regexp.MustCompile(`/resourceGroups/([^/]+)/`)
 	subscriptionRE     = regexp.MustCompile(`/subscriptions/([^/]+)(?:/.*)?$`)
-	reservationIdRE    = regexp.MustCompile(`/microsoft.capacity/reservationOrders/[^/]+/reservations/([^/]+)(?:/.*)?$`)
-	reservationOrderRE = regexp.MustCompile(`/microsoft.capacity/reservationOrders/([^/]+)(?:/.*)?$`)
+	reservationIdRE    = regexp.MustCompile(`/[Mm]icrosoft.[Cc]apacity/reservationOrders/[^/]+/reservations/([^/]+)(?:/.*)?$`)
+	reservationOrderRE = regexp.MustCompile(`/[Mm]icrosoft.[Cc]apacity/reservationOrders/([^/]+)(?:/.*)?$`)
 	hostGroupRE        = regexp.MustCompile(`/providers/Microsoft.Compute/hostGroups/([^/]+)(?:/.*)?$`)
 	vmNameRE           = regexp.MustCompile(`providers/Microsoft.Compute/virtualMachines/([^/]+)(?:/.*)?$`)
 	sqlServerNameRE    = regexp.MustCompile(`/Microsoft.Sql/servers/([^/]+)(?:/.*)?$`)
